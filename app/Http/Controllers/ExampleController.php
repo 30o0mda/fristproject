@@ -2,12 +2,101 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Test;
 use Illuminate\Http\Request;
+use Illuminate\view\view;
+
 
 class ExampleController extends Controller
 {
-    public function my_data()
+    private $columns = ['name', 'content'];
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(): View
     {
-        return view('my_data');
+        if (request('trashed') == 'yes') {
+
+            $test = Test::withTrashed()->get();
+        } else {
+
+            $test = Test::get();
+        }
+        return view('index', compact('test'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(): View
+    {
+        return view('create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        // dd($request->name);
+        Test::create($request->only($this->columns));
+
+        return redirect('example');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $test = Test::find($id);
+        return view('show', compact('test'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $test = Test::find($id);
+        return view('edit', compact('test'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        Test::where('id', $id)->update($request->only($this->columns));
+
+        return redirect('example');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        Test::where('id', $id)->delete();
+
+        return redirect('example');
+    }
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function restore(string $id)
+    {
+        Test::where('id', $id)->restore();
+
+        return redirect('example');
+    }
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function forcedelete(string $id)
+    {
+        Test::where('id', $id)->forcedelete();
+
+        return redirect('example');
     }
 }
