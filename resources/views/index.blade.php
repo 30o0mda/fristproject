@@ -1,6 +1,7 @@
 <a href="{{ route('example.create') }}" class="create">create</a>
-<a href="example" class="create">Without trashed</a>
-<a href="example?trashed=yes" class="create">With  trashed</a>
+{{-- <a href="example" class="create">Without trashed</a> --}}
+<a href="{{ route('example.index') }}" class="create">Without trashed</a>
+<a href="{{ route('example.index', ['trashed' => 'yes']) }}" class="create">With  trashed</a>
 <table>
     <thead>
         <tr>
