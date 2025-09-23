@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tests', function (Blueprint $table) {
-            $table->id();
-            $table->string('name',);
-            $table->longText('content');
-            // $table->dateTime('my_soft_delete')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('tests', function (Blueprint $table) {
+            $table->enum('status',['enabled','disabled']);
+            $table->boolean('show');
         });
     }
 
@@ -26,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tests');
+        Schema::table('tests', function (Blueprint $table) {
+            //
+        });
     }
 };

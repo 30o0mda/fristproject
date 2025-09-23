@@ -9,7 +9,7 @@ use Illuminate\view\view;
 
 class ExampleController extends Controller
 {
-    private $columns = ['name', 'content'];
+    // private $columns = ['name', 'content'];
     /**
      * Display a listing of the resource.
      */
@@ -22,7 +22,7 @@ class ExampleController extends Controller
 
             $test = Test::get();
         }
-        return view('index', compact('test'));
+        return view('example.index', compact('test'));
     }
 
     /**
@@ -30,7 +30,7 @@ class ExampleController extends Controller
      */
     public function create(): View
     {
-        return view('create');
+        return view('example.create');
     }
 
     /**
@@ -39,7 +39,18 @@ class ExampleController extends Controller
     public function store(Request $request)
     {
         // dd($request->name);
-        Test::create($request->only($this->columns));
+        $data = $request->validate([
+            'name' => 'required|string',
+            'content' => 'required|string',
+            'status' => 'required|in:enabled,disabled',
+            'show' => 'required|in:1,0'
+        ],[],[
+            'name' => 'title',
+            'content' => 'content text',
+            'status' => 'status',
+            'show' => 'show data'
+        ]);
+        Test::create($data);
 
         return redirect('example');
     }
@@ -50,7 +61,7 @@ class ExampleController extends Controller
     public function show(string $id)
     {
         $test = Test::find($id);
-        return view('show', compact('test'));
+        return view('example.show', compact('test'));
     }
 
     /**
@@ -59,7 +70,7 @@ class ExampleController extends Controller
     public function edit(string $id)
     {
         $test = Test::find($id);
-        return view('edit', compact('test'));
+        return view('example.edit', compact('test'));
     }
 
     /**
@@ -67,7 +78,18 @@ class ExampleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        Test::where('id', $id)->update($request->only($this->columns));
+        $data = $request->validate([
+            'name' => 'required|string',
+            'content' => 'required|string',
+            'status' => 'required|in:enabled,disabled',
+            'show' => 'required|in:1,0'
+        ],[],[
+            'name' => 'title',
+            'content' => 'content text',
+            'status' => 'status',
+            'show' => 'show data'
+        ]);
+        Test::where('id', $id)->update($data);
 
         return redirect('example');
     }

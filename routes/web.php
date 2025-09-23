@@ -24,7 +24,7 @@ enum section:string {
 //     return 'welcome';
 // });
 
-Route::view('/', 'welcome');
+Route::view('/', 'index');
 
 // if i want use some controller in my route
 route::controller(ExampleController::class)->group(function () {
