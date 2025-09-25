@@ -51,5 +51,14 @@ route::get('section/{section}', function (section $section) {
 Route::resource('example', ExampleController::class);
 route::delete('example/force/delete/{example}', [ExampleController::class, 'forcedelete'])->name('example.forcedelete');
 route::post('example/force/restore/{example}', [ExampleController::class, 'restore'])->name('example.restore');
+route::get('query/buldier',function(){
+    $post= \DB::table('views')->get();
+    return 'done';
+
+});
 
 
+
+Auth::routes(['verify' => true]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

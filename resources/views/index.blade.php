@@ -1,7 +1,7 @@
 @include('layouts.header')
-@yield('content')
+@yield('content')   
 @include('layouts.footer')
 
 
-{{ $myvar }}
+
 

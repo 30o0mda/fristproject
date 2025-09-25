@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\View;
 use Illuminate\Database\Seeder;
-use Database\Seeders\Testseeder;
+use Database\Seeders\ViewSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,7 +22,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            Testseeder::class,
+            ViewSeeder::class,
         ]);
     }
 }

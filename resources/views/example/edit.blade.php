@@ -17,6 +17,7 @@
     </div>
 
 @endif
+{{-- @dd($test->show) --}}
 <form action="{{ route('example.update', ['example' => $test->id]) }}" method="POST">
     @csrf
     @method('put')
@@ -24,10 +25,10 @@
 
  <hr />
         <label for="show">Show Data</label>
-        <input type="radio" name="show" value="1" @selected($test->show == 1) id="show">
+        <input type="radio" name="show" value="1" {{ $test->show == 1 ? 'checked' : '' }} id="show">
         <hr />
         <label for="show">Hide Data</label>
-        <input type="radio" name="show" value="0" @selected($test->show == 0) id="hide">
+        <input type="radio" name="show" value="0" {{ $test->show == 0 ? 'checked' : '' }} id="hide">
         <hr />
         <label for="status">status</label>
         <select name="status">

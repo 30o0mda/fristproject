@@ -38,7 +38,7 @@ class ExampleController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->name);
+        // dd($request->all());
         $data = $request->validate([
             'name' => 'required|string',
             'content' => 'required|string',
@@ -70,6 +70,7 @@ class ExampleController extends Controller
     public function edit(string $id)
     {
         $test = Test::find($id);
+        // dd($test);
         return view('example.edit', compact('test'));
     }
 

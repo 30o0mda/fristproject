@@ -18,15 +18,15 @@
         <input type="text" placeholder="name" name="name" value="{{ old('name') }}">
        <hr />
         <label for="show">Show Data</label>
-        <input type="radio" name="show" value="1" @selected($test->show == 1) id="show">
+        <input type="radio" name="show" value="1"  id="show">
         <hr />
         <label for="show">Hide Data</label>
-        <input type="radio" name="show" value="0" @selected($test->show == 0) id="hide">
+        <input type="radio" name="show" value="0"  id="hide">
         <hr />
         <label for="status">status</label>
         <select name="status">
-            <option @selected($test->status == 'enabled') value="enabled">Enable</option>
-            <option  @selected($test->status == 'disabled') value="disabled">Disable</option>
+            <option  value="enabled">Enable</option>
+            <option  value="disabled">Disable</option>
 
         </select>
         <hr />
@@ -43,9 +43,9 @@
         <h4> I am h4</h4>
     @endpush
 
-    @push('js')
+    {{-- @push('js')
         <script>
             alert('You are Created A New Record Now');
         </script>
-    @endpush
+    @endpush --}}
 @endsection
