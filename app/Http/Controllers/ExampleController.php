@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Test;
 use Illuminate\Http\Request;
 use Illuminate\view\view;
+use App\Http\Requests\ExampleCreate;
+use App\Http\Requests\ExampleUpdate;
+
 
 
 class ExampleController extends Controller
@@ -36,21 +39,11 @@ class ExampleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ExampleCreate $request)
     {
-        // dd($request->all());
-        $data = $request->validate([
-            'name' => 'required|string',
-            'content' => 'required|string',
-            'status' => 'required|in:enabled,disabled',
-            'show' => 'required|in:1,0'
-        ],[],[
-            'name' => 'title',
-            'content' => 'content text',
-            'status' => 'status',
-            'show' => 'show data'
-        ]);
-        Test::create($data);
+
+        // dd($request->validated());
+        Test::create($request->validated());
 
         return redirect('example');
     }
@@ -77,20 +70,9 @@ class ExampleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ExampleUpdate $request, string $id)
     {
-        $data = $request->validate([
-            'name' => 'required|string',
-            'content' => 'required|string',
-            'status' => 'required|in:enabled,disabled',
-            'show' => 'required|in:1,0'
-        ],[],[
-            'name' => 'title',
-            'content' => 'content text',
-            'status' => 'status',
-            'show' => 'show data'
-        ]);
-        Test::where('id', $id)->update($data);
+        Test::where('id', $id)->update($request->validated());
 
         return redirect('example');
     }

@@ -48,7 +48,7 @@ route::get('section/{section}', function (section $section) {
 //example/{id}/edit => (u=>update)  GET  |name:example.edit
 //example/{id} => (u=>update)  put method  |name:example.update
 //example/{id} => (d=>delete)  delete method  |name:example.destroy
-Route::resource('example', ExampleController::class);
+Route::resource('example', ExampleController::class)->middleware('can:isAdmin');    ;
 route::delete('example/force/delete/{example}', [ExampleController::class, 'forcedelete'])->name('example.forcedelete');
 route::post('example/force/restore/{example}', [ExampleController::class, 'restore'])->name('example.restore');
 route::get('query/buldier',function(){
@@ -62,3 +62,23 @@ route::get('query/buldier',function(){
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+route::get('set/session', function () {
+    session()->put('test', 'test value from session');
+});
+
+route::get('get/session', function () {
+    if (session()->exists('test')) {
+        return session('test');
+    }
+});
+
+
+route::get('send/demo',function(){
+    $data = [
+        'title' => 'Demo title',
+        'content' => 'Demo title',
+    ];
+    $test = App\Models\Test::find(1);
+    Mail::to('test@laravel.com')->send(new App\Mail\DemoMail($test));
+});

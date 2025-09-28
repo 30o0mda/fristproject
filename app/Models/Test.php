@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Test extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
     // const DELETED_AT = 'my_soft_delete';
     protected $fillable = [
         'name',
@@ -16,6 +16,41 @@ class Test extends Model
         'status',
         'show'
     ];
+    //   static::saving(function ($model) {
+//             $model->name = 'saving method from model';
+
+    //         });
+
+
+    // protected static function boot(){
+    // parent::boot();
+    // //create
+    // static::created(function ($model) {});
+    // static::creating(function ($model) {});
+    // //update
+    // static::updated(function ($model) {});
+    // static::updating(function ($model) {});
+    // //save
+    // static::saved(function ($model) {});
+    // static::saving(function ($model) {});
+    // //delete && force delete
+    // static::deleted(function ($model) {});
+    // static::deleting(function ($model) {});
+    // static::forceDeleted(function ($model) {});
+    // static::forceDeleting(function ($model) {});
+    // //restore
+    // static::restored(function ($model) {});
+    // static::restoring(function ($model) {});
+    // //retrive
+    // static::retrieved(function ($model) {});
+
+    // static::replicated(function ($model) {});
+    // static::replicatin(function ($model) {});
+
+    // }
+
+
+
 
     public function getNameattribute($value)
     {
@@ -26,12 +61,12 @@ class Test extends Model
         return date('y-M __  H:i', strtotime($value));
     }
 
-     public function getUpdatedAtattribute($value)
+    public function getUpdatedAtattribute($value)
     {
         return date('y-M __  H:i', strtotime($value));
     }
 
-     public function getDeletedAtattribute($value)
+    public function getDeletedAtattribute($value)
     {
         return date('y-M __  H:i', strtotime($value));
     }
