@@ -21,10 +21,12 @@ class ExampleCreate extends FormRequest
      */
     public function rules(): array
     {
+        // dd($this->all());
         return [
-            'name' => ['required','string', new NameRule()],
+            'name' => ['required','string',],
             'content' => 'required|string',
             'status' => 'required|string',
+            'photo' => 'required|image',
             'show' => 'required|string',
         ];
     }
@@ -34,6 +36,7 @@ class ExampleCreate extends FormRequest
         return [
             'name' => 'Title',
             'content' => 'Content text',
+            'photo' => 'Photo',
         ];
     }
 

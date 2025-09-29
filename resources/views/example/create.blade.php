@@ -13,12 +13,15 @@
 
         </div>
     @endif
-    <form action="{{ route('example.store') }}" method="POST">
+    <form action="{{ route('example.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="text" placeholder="name" name="name" value="{{ old('name') }}">
        <hr />
         <label for="show">Show Data</label>
         <input type="radio" name="show" value="1"  id="show">
+        <hr />
+        photo
+        <input type="file" name="photo" accept="image/*">
         <hr />
         <label for="show">Hide Data</label>
         <input type="radio" name="show" value="0"  id="hide">

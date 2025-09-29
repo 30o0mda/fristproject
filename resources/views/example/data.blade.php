@@ -1,5 +1,11 @@
+<?php
+use App\Models\Example;
+use Illuminate\Support\Facades\Storage;
+?>
 <tr>
+                <td>{{ $data->id }}</td>
                 <td>{{ $data->name }}</td>
+                <td><a href={{ storage::url($data->photo) }}> <img src="{{ storage::url($data->photo) }}" style="width: 48px;height:48px"></a></td>
                 <td>{{ $data->status }}</td>
                 <td>{{ $data->show==1?'show':'hide' }}</td>
                 <td>{{ $data->content }}</td>

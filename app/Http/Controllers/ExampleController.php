@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Test;
+
 use Illuminate\Http\Request;
-use Illuminate\view\view;
+use Illuminate\View\View;
 use App\Http\Requests\ExampleCreate;
 use App\Http\Requests\ExampleUpdate;
-
-
+use App\Models\Test;
+use Illuminate\Support\Facades\Storage;
 
 class ExampleController extends Controller
 {
@@ -43,7 +43,9 @@ class ExampleController extends Controller
     {
 
         // dd($request->validated());
-        Test::create($request->validated());
+        $data = $request->validated();
+        $data['photo'] = $request->file('photo')->store('public/images');
+        Test::create($data);
 
         return redirect('example');
     }
@@ -72,6 +74,7 @@ class ExampleController extends Controller
      */
     public function update(ExampleUpdate $request, string $id)
     {
+        $test = Test::find($id);
         Test::where('id', $id)->update($request->validated());
 
         return redirect('example');
@@ -82,6 +85,7 @@ class ExampleController extends Controller
      */
     public function destroy(string $id)
     {
+
         Test::where('id', $id)->delete();
 
         return redirect('example');
@@ -100,8 +104,12 @@ class ExampleController extends Controller
      */
     public function forcedelete(string $id)
     {
-        Test::where('id', $id)->forcedelete();
+        $test = Test::withTrashed()->find($id);
 
+        Test::where('id', $id)->forcedelete();
+        if (!empty($test->photo) && Storage::exists($test->photo)) {
+            Storage::delete($test->photo);
+        }
         return redirect('example');
     }
 }

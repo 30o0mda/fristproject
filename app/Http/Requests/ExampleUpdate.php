@@ -14,6 +14,7 @@ class ExampleUpdate extends FormRequest
         return [
            'name'=>'required|string',
            'content'=>'required|string',
+           'photo' => 'sometimes|nullable|image',
         ];
     }
 
@@ -22,6 +23,7 @@ class ExampleUpdate extends FormRequest
         return [
             'name' => 'Title',
             'content' => 'Content text',
+            'photo' => 'Photo',
         ];
     }
 }
